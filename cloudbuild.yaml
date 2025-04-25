@@ -7,24 +7,16 @@ steps:
         "-t",
         "sijiewang/pngen:ai-toolkit",
         "--build-arg",
-        "HF_TOKEN=$$HF_TOKEN",
+        "HF_TOKEN=${_HF_TOKEN}",
         ".",
       ]
-    secretEnv: ["HF_TOKEN"]
 
   # Push the container image to Docker Hub
   - name: "gcr.io/cloud-builders/docker"
     args: ["push", "sijiewang/pngen:ai-toolkit"]
-    secretEnv: ["DOCKER_USERNAME", "DOCKER_PASSWORD"]
-
-availableSecrets:
-  secretManager:
-    - versionName: projects/$PROJECT_ID/secrets/docker-username/versions/latest
-      env: "DOCKER_USERNAME"
-    - versionName: projects/$PROJECT_ID/secrets/docker-password/versions/latest
-      env: "DOCKER_PASSWORD"
-    - versionName: projects/$PROJECT_ID/secrets/hf-token/versions/latest
-      env: "HF_TOKEN"
+    env:
+      - "DOCKER_USERNAME=${_DOCKER_USERNAME}"
+      - "DOCKER_PASSWORD=${_DOCKER_PASSWORD}"
 
 images:
   - "sijiewang/pngen:ai-toolkit"
