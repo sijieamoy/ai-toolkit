@@ -11,12 +11,13 @@ steps:
         ".",
       ]
 
+  # Login to Docker Hub
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["login", "-u", "${_DOCKER_USERNAME}", "-p", "${_DOCKER_PASSWORD}"]
+
   # Push the container image to Docker Hub
   - name: "gcr.io/cloud-builders/docker"
     args: ["push", "sijiewang/pngen:ai-toolkit"]
-    env:
-      - "DOCKER_USERNAME=${_DOCKER_USERNAME}"
-      - "DOCKER_PASSWORD=${_DOCKER_PASSWORD}"
 
 images:
   - "sijiewang/pngen:ai-toolkit"
