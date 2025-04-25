@@ -28,3 +28,6 @@ availableSecrets:
 
 images:
   - "sijiewang/pngen:ai-toolkit"
+
+options:
+  logging: CLOUD_LOGGING_ONLY
